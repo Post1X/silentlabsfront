@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from './Portfolio.module.scss';
 
 import arrowIcon from '../../../assets/icons/svg/arrow.svg';
@@ -7,8 +7,24 @@ import Modal from '../../sections/portfolio/components/Modal/Modal';
 import { slidesData } from './data/SlidesData';
 
 const Portfolio = () => {
+  const sectionRef = useRef();
+  const [visible, setVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -22,7 +38,7 @@ const Portfolio = () => {
   };
 
   return (
-    <section className={styles.portfolio}>
+    <section ref={sectionRef} className={`fadeInUp${visible ? ' visible' : ''} ${styles.portfolio}`}>
       <div className={styles.portfolio__container}>
         <div className={styles.portfolio__header}>
           <h1 className={styles.portfolio__header_title}>с чем мы имели опыт</h1>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './Testimonials.module.scss';
 import TestimonialCard from './components/testimonialCard/TestimonialCard';
@@ -9,7 +9,7 @@ const testimonialsData = [
   {
     text: (
       <>
-        Заказывала лендинг. Очень довольна качеством и<br />
+        Заказывал лендинг. Очень доволен качеством и<br />
         сроками разработки. Лендинг полностью<br />
         соответствует требованиям, и я с уверенностью<br />
         могу рекомендовать эту компанию друзьям
@@ -17,7 +17,7 @@ const testimonialsData = [
     ),
     imgSrc: userLogo,
     imgAlt: 'user logo',
-    name: 'Андрея'
+    name: 'Илья'
   },
   {
     text: (
@@ -62,6 +62,8 @@ const Testimonials = () => {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const sectionRef = useRef();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const content = contentRef.current;
@@ -104,8 +106,22 @@ const Testimonials = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.testimonials}>
+    <section ref={sectionRef} className={`fadeInUp${visible ? ' visible' : ''} ${styles.testimonials}`}>
       <div className={styles.testimonials__container}>
         <div className={styles.testimonials__container_header}>
           <h2 className={styles.testimonials__container_header_title}>Отзывы клиентов</h2>

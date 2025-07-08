@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from './Hero.module.scss';
 import Button from '../../../ui-kit/button/Button';
 
 const Hero = ({ onDiscussProjectClick }) => {
+  const sectionRef = useRef();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.hero}>
+    <section ref={sectionRef} className={`fadeInUp${visible ? ' visible' : ''} ${styles.hero}`}>
       <div className={styles.hero__container}>
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>

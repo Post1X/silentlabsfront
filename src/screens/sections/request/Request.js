@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 
 import styles from './Request.module.scss';
 
 import adminImg from '../../../assets/images/user/admin-img.png';
 import Input from '../../../ui-kit/input/Input';
 import Button from '../../../ui-kit/button/Button';
+import RequestTypewriterBlock from './RequestTypewriterBlock';
+
+// Глобальные refs для независимой анимации
+const globalTypewriterState = {
+  startType: false,
+  firstDone: false,
+  firstText: '',
+};
+
+// TypewriterText component (мемоизированный, независимый)
+const TypewriterText = memo(({ text, speed = 30, className, start, onDone }) => {
+  const [displayed, setDisplayed] = useState('');
+  const startedRef = useRef(false);
+  useEffect(() => {
+    if (!start || startedRef.current) return;
+    startedRef.current = true;
+    let i = 0;
+    setDisplayed('');
+    const interval = setInterval(() => {
+      setDisplayed(text.slice(0, i + 1));
+      i++;
+      if (i === text.length) {
+        clearInterval(interval);
+        if (onDone) onDone();
+      }
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed, start, onDone]);
+  return <span className={className}>{displayed}</span>;
+});
 
 const Request = ({ requestButtonRef }) => {
   const [values, setValues] = useState({
@@ -16,6 +46,25 @@ const Request = ({ requestButtonRef }) => {
   const [isSending, setIsSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const textBlockRef = useRef();
+  const [startType, setStartType] = useState(false);
+  const [firstDone, setFirstDone] = useState(false);
+  const [firstText, setFirstText] = useState('');
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartType(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (textBlockRef.current) observer.observe(textBlockRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleChange = (key, newValue) => {
     setValues((prev) => ({
@@ -35,7 +84,7 @@ const Request = ({ requestButtonRef }) => {
     setError('');
     setSuccess(false);
     const TELEGRAM_BOT_TOKEN = '7824671826:AAG1Ev578oxKo0VzwH5z9WpweAmozlBLlFU';
-    const TELEGRAM_CHAT_ID = '867980203';
+    const TELEGRAM_CHAT_ID = '-4801164999';
     const message = `Заявка с сайта!%0AИмя: ${values.name || '-'}%0AПочта: ${values.email || '-'}%0AТелефон: ${values.phone || '-'}%0AПроект: ${values.project || '-'}`;
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}`;
     console.log('Отправка данных в Telegram:', url);
@@ -74,15 +123,7 @@ const Request = ({ requestButtonRef }) => {
                 <img src={adminImg} alt="" className={styles.admin__info_img} />
               </div>
               <div className={styles.admin__info_text_container}>
-                <div className={styles.admin__info_text_container_content}>
-                  <h4 className={styles.content__title}>Привет, я Эльвира 👋</h4>
-                  <p className={styles.content__subtitle}>Администратор Silent Automations.</p>
-                  <p className={styles.content__text}>
-                    Если у вас есть проект или идея — заполните форму, и я помогу
-                    <br />
-                    найти подходящее решение для вашего бизнеса.
-                  </p>
-                </div>
+                <RequestTypewriterBlock />
               </div>
             </div>
           </div>
@@ -116,7 +157,7 @@ const Request = ({ requestButtonRef }) => {
             <div className={styles.request__form_secondary}>
               <Input
                 type="text"
-                placeholder="Опишите коротко, какой проект вас интересует"
+                placeholder="Опишите коротко, какой проект вас интересует и самый удобный для вас способ связи"
                 name="project"
                 className="secondary"
                 value={values.project}

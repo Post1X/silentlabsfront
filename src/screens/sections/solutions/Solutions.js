@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import styles from './Solutions.module.scss';
 
@@ -11,8 +11,25 @@ import Card from './components/card/Card';
 import Button from '../../../ui-kit/button/Button';
 
 const Solutions = () => {
+  const sectionRef = useRef();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.solutions}>
+    <section ref={sectionRef} className={`fadeInUp${visible ? ' visible' : ''} ${styles.solutions}`}>
       <div className={styles.solutions__container}>
         <div className={styles.solutions__header}>
           <h2 className={styles.solutions__header_title}>Решения</h2>
@@ -42,13 +59,13 @@ const Solutions = () => {
               <>
                 Создаём не просто ПО, а технологическую экосистему, которая масштабируется
                 <br />
-                вместе с вашим бизнесом.
+                вместе с вашим бизнесом. 
                 <span>
-                  Интеграции, автоматизация, совместимость с внешними
+                {" "}Интеграции, автоматизация, совместимость с внешними
                   <br />
                   сервисами
                 </span>
-                — всё для устойчивого развития и цифровой зрелости.
+                {" "}— всё для устойчивого развития и цифровой зрелости.
               </>
             }
             src={product2}

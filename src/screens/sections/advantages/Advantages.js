@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import styles from './Advantages.module.scss';
 import FactCard from './components/factCard/FactCard';
@@ -10,8 +10,25 @@ import ninjaIcon from '../../../assets/icons/ninja-icon.png';
 import safetyGlasses from '../../../assets/icons/safety-glasses-icon.png';
 
 const Advantages = () => {
+  const sectionRef = useRef();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={styles.advantages}>
+    <section ref={sectionRef} className={`fadeInUp${visible ? ' visible' : ''} ${styles.advantages}`}>
       <div className={styles.advantages__container}>
         <div className={styles.advantages__header}>
           <h2 className={styles.advantages__header_title}>преимущества</h2>
