@@ -1,0 +1,78 @@
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url("../fonts/ubuntu/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url("../fonts/ubuntu/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url("../fonts/ubuntu/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url("../fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype");
+}
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal__window {
+  padding-top: 100px;
+  width: 80%;
+  max-height: 100vh;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal__close {
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  top: 100px;
+  right: 110px;
+}
+
+.modal__close:hover .modal__close_svg {
+  fill: #F0813E;
+}
+
+.modal__close:hover {
+  color: red;
+}
+
+img {
+  display: block;
+}
+
+/*# sourceMappingURL=Modal.module.css.map */

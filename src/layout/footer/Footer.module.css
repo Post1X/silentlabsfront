@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url("../fonts/ubuntu/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url("../fonts/ubuntu/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url("../fonts/ubuntu/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url("../fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype");
+}
+.footer {
+  width: 97%;
+  height: 62px;
+  border-top: 1px solid hsl(48, 7%, 59%);
+  margin: 150px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer__text {
+  font-size: 12px;
+  color: hsl(48, 7%, 59%);
+}
+.footer__link {
+  font-size: 12px;
+  color: hsl(48, 7%, 59%);
+}
+
+/*# sourceMappingURL=Footer.module.css.map */

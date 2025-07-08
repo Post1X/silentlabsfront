@@ -1,0 +1,70 @@
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url("../fonts/ubuntu/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url("../fonts/ubuntu/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url("../fonts/ubuntu/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url("../fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype");
+}
+.promo {
+  width: 100%;
+  height: 369px;
+  background-color: hsl(23, 86%, 59%);
+  margin-top: 150px;
+  display: flex;
+}
+.promo__text_container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.promo__text_container_content {
+  width: 85%;
+  height: 80%;
+}
+.promo__image_container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.promo__title {
+  font-size: 65px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.promo__text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
+/*# sourceMappingURL=PromBanner.module.css.map */

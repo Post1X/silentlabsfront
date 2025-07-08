@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url("../fonts/ubuntu/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url("../fonts/ubuntu/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url("../fonts/ubuntu/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Bold-Italic";
+  src: url("../fonts/ubuntu/Ubuntu-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url("../fonts/ubuntu/Ubuntu-Regular.ttf") format("truetype");
+}
+.fact__card {
+  width: 25%;
+  height: 156px;
+  border-top: 1px solid hsl(48, 7%, 59%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.fact__card_title {
+  font-size: 80px;
+  text-transform: uppercase;
+}
+.fact__card_text {
+  font-size: 30px;
+  color: #F0813E;
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=FactCard.module.css.map */

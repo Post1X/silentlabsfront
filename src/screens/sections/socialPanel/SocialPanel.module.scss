@@ -1,0 +1,15 @@
+.social {
+  width: 100%;
+  height: 127px;
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    width: 97%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+}

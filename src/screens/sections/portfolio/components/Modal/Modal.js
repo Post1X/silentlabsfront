@@ -1,0 +1,47 @@
+// Modal.jsx
+import React, { useEffect } from 'react';
+import styles from './Modal.module.scss';
+
+import closeIcon from '../../../../../assets/icons/svg/close.svg';
+
+const Modal = ({ isOpen, onClose, children }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={styles.modal__overlay} onClick={onClose}>
+      <div className={styles.modal__window} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.modal__close} onClick={onClose}>
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="1" y="1" width="62" height="62" rx="31" fill="white" />
+            <rect x="1" y="1" width="62" height="62" rx="31" stroke="white" stroke-width="2" />
+            <path
+              d="M43.5503 20.4679C42.8353 19.7529 41.6803 19.7529 40.9653 20.4679L32.0003 29.4146L23.0353 20.4496C22.3203 19.7346 21.1653 19.7346 20.4503 20.4496C19.7353 21.1646 19.7353 22.3196 20.4503 23.0346L29.4153 31.9996L20.4503 40.9646C19.7353 41.6796 19.7353 42.8346 20.4503 43.5496C21.1653 44.2646 22.3203 44.2646 23.0353 43.5496L32.0003 34.5846L40.9653 43.5496C41.6803 44.2646 42.8353 44.2646 43.5503 43.5496C44.2653 42.8346 44.2653 41.6796 43.5503 40.9646L34.5853 31.9996L43.5503 23.0346C44.247 22.3379 44.247 21.1646 43.5503 20.4679Z"
+              fill="#9E9B90"
+              className={styles.modal__close_svg}
+            />
+          </svg>
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
