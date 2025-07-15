@@ -196,6 +196,29 @@
 </head>
 
 <body class="">
+<script>
+(function() {
+	// Clear Service Worker and Cache Storage
+	if ('caches' in window) {
+		caches.keys().then(function(names) {
+			for (let name of names) caches.delete(name);
+		});
+	}
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.getRegistrations().then(function(registrations) {
+			for (let registration of registrations) {
+				registration.unregister();
+			}
+		});
+	}
+	// Clear localStorage and sessionStorage
+	try {
+		localStorage.clear();
+		sessionStorage.clear();
+	} catch (e) {}
+	// window.location.reload(true); // Uncomment if you want to force reload after clearing
+})();
+</script>
 	<div class="wrapper">
 		<header data-scroll="61" data-scroll-show class="header">
 			<div class="header__container">

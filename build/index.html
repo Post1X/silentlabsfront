@@ -188,6 +188,29 @@
 </head>
 
 <body class="">
+<script>
+(function() {
+	// Очищаем кэш Service Worker и Cache Storage
+	if ('caches' in window) {
+		caches.keys().then(function(names) {
+			for (let name of names) caches.delete(name);
+		});
+	}
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.getRegistrations().then(function(registrations) {
+			for (let registration of registrations) {
+				registration.unregister();
+			}
+		});
+	}
+	// Очищаем localStorage и sessionStorage
+	try {
+		localStorage.clear();
+		sessionStorage.clear();
+	} catch (e) {}
+	// window.location.reload(true); // Если нужно форсировать перезагрузку после очистки
+})();
+</script>
 	<div class="wrapper">
 		<header data-scroll="61" data-scroll-show class="header">
 			<div class="header__container">
@@ -1127,6 +1150,7 @@
 	</div>
 	<script src="js/app.min.js?_v=20250715152508"></script>
 	<script>
+		
 		function validateEmail(email) {
 			const domainPattern = /\.(com|net|org|ru|io|co|me|ai|app|dev|info|biz|us|uk|ca|de|fr|es|it|cz|pl|by|kz|ua|am)$/i;
 			return /@/.test(email) && domainPattern.test(email);
