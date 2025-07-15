@@ -4172,6 +4172,19 @@
                 nextEl: ".portfolio-swiper-button-next"
             }
         });
+        if (document.querySelector(".popup-questions__slider")) new swiper_core_Swiper(".popup-questions__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            autoHeight: false,
+            speed: 300,
+            navigation: {
+                prevEl: ".popup-questions-swiper-button-prev",
+                nextEl: ".popup-questions-swiper-button-next"
+            }
+        });
     }
     window.addEventListener("load", (function(e) {
         initSliders();
@@ -4360,11 +4373,11 @@
         }
     }), 0);
     document.addEventListener("DOMContentLoaded", (() => {
-        const questionBlocks = document.querySelectorAll(".popup-questions__questions-item");
+        const questionBlocks = document.querySelectorAll(".popup-questions__slide");
         const priceElem = document.querySelector(".popup-questions__price-num");
         const progressBar = document.querySelector(".popup-questions__progressbar");
         const progressBarFill = progressBar.querySelector(".popup-questions__progressbar-fill");
-        const contactBtn = document.querySelector(".popup-questions__button");
+        const contactBtn = document.querySelector(".popup-questions-feedback__form");
         function updateUI() {
             let total = 0;
             document.querySelectorAll(".popup-questions__questions-answer.selected").forEach((answer => {
