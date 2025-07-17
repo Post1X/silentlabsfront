@@ -695,7 +695,7 @@
 							<div class="form-feedback__status" style="margin-top:10px;font-size:13px;"></div>
 							<div class="form-feedback__text">
 								By submitting an application, you agree to
-								<a href="">processing personal data</a>
+								<a href="img/politics-en.html" target="_blank">processing personal data</a>
 							</div>
 						</form>
 					</div>
@@ -777,7 +777,7 @@
 			<div class="footer__container">
 				<div class="footer__body">
 					<div class="footer__copyright">© 2025, Silent Automations</div>
-					<a href="" class="footer__polytics">Data processing policy</a </div>
+					<a href="img/politics-en.html" target="_blank" class="footer__polytics">Data processing policy</a>
 				</div>
 			</div>
 		</footer>
@@ -894,7 +894,7 @@
 					</button>
 					<div class="form-feedback__text">
 						By submitting an application, you agree to
-						<a href="">processing personal data</a>
+						<a href="img/politics-en.html" target="_blank">processing personal data</a>
 					</div>
 				</form>
 			</div>
@@ -941,7 +941,7 @@
 					</button>
 					<div class="form-feedback__text">
 						By submitting an application, you agree to
-						<a href="">processing personal data</a>
+						<a href="img/politics-en.html" target="_blank">processing personal data</a>
 					</div>
 				</form>
 			</div>
@@ -1125,7 +1125,7 @@
 							</button>
 							<div class="form-feedback__text">
 								By submitting an application, you agree to
-								<a href="">processing personal data</a>
+								<a href="img/politics-en.html" target="_blank">processing personal data</a>
 							</div>
 						</form>
 					</div>
@@ -1144,12 +1144,8 @@
 		}
 		function validateForm(form) {
 			let valid = true;
+			// Only validate email and phone
 			const fields = [
-				{
-					selector: 'input[name="form[name]"]',
-					message: 'Please enter your name',
-					validate: function (el) { return el.value.trim() !== ''; }
-				},
 				{
 					selector: 'input[name="form[phone]"]',
 					message: 'Please enter your phone',
@@ -1159,12 +1155,7 @@
 					selector: 'input[name="form[email]"]',
 					message: 'Please enter a valid email',
 					validate: function (el) { return validateEmail(el.value.trim()); }
-				},
-				{
-					selector: 'textarea',
-					message: 'Please describe your project',
-					validate: function (el) { return el.value.trim() !== ''; }
-				},
+				}
 			];
 
 			form.querySelectorAll('.input').forEach(el => {
@@ -1189,7 +1180,7 @@
 							el.parentElement.appendChild(errorDiv);
 						}
 					}
-					// Снимаем ошибку при вводе
+					// Remove error on input
 					el.addEventListener('input', function handler() {
 						if (field.validate ? field.validate(el) : el.value.trim() !== '') {
 							el.classList.remove('input-error');
@@ -1291,6 +1282,26 @@
 				observer.observe(portfolioSection);
 			});
 		}
+	</script>
+	<script>
+	// ... existing code ...
+	document.addEventListener("DOMContentLoaded", function () {
+		const contactForm = document.querySelector('.popup-questions-feedback__form');
+		if (!contactForm) return;
+		const observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				if (contactForm.classList.contains('active')) {
+					setTimeout(function() {
+						contactForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+						const firstInput = contactForm.querySelector('input, textarea');
+						if (firstInput) firstInput.focus();
+					}, 200);
+				}
+			});
+		});
+		observer.observe(contactForm, { attributes: true, attributeFilter: ['class'] });
+	});
+	// ... existing code ...
 	</script>
 </body>
 
