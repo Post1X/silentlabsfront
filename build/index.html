@@ -709,8 +709,7 @@
 										data-error="Заполните поле" placeholder="Телефон" class="input">
 								</div>
 								<div class="form-feedback__inputs-input">
-									<input type="email" data-required="email" data-validate name="form[email]"
-										data-error="Заполните поле" placeholder="Ваш e-mail" class="input">
+									<input type="text" name="form[email]" placeholder="Ваш e-mail" class="input">
 								</div>
 							</div>
 							<div class="form-feedback__inputs-input">
@@ -910,8 +909,7 @@
 								placeholder="Телефон" class="input">
 						</div>
 						<div class="form-feedback__inputs-input">
-							<input type="email" data-required="email" data-validate name="form[email]"
-								data-error="Заполните поле" placeholder="Ваш e-mail" class="input">
+							<input type="text" name="form[email]" placeholder="Ваш e-mail" class="input">
 						</div>
 					</div>
 					<div class="form-feedback__inputs-input">
@@ -957,8 +955,7 @@
 								placeholder="Телефон" class="input">
 						</div>
 						<div class="form-feedback__inputs-input">
-							<input type="email" data-required="email" data-validate name="form[email]"
-								data-error="Заполните поле" placeholder="Ваш e-mail" class="input">
+							<input type="text" name="form[email]" placeholder="Ваш e-mail" class="input">
 						</div>
 					</div>
 					<div class="form-feedback__inputs-input">
@@ -1141,10 +1138,6 @@
 									<input type="number" data-required data-validate name="form[phone]"
 										data-error="Заполните поле" placeholder="Телефон" class="input">
 								</div>
-								<div class="form-feedback__inputs-input">
-									<input type="email" data-required="email" data-validate name="form[email]"
-										data-error="Заполните поле" placeholder="Ваш e-mail" class="input">
-								</div>
 							</div>
 							<div class="form-feedback__inputs-input">
 								<textarea data-required data-validate data-error="Заполните поле"
@@ -1177,45 +1170,28 @@
 		}
 		function validateForm(form) {
 			let valid = true;
-			// Валидация только email и телефона
 			const fields = [
-				{
-					selector: 'input[name="form[phone]"]',
-					message: 'Пожалуйста, введите телефон',
-					validate: function (el) { return el.value.trim() !== ''; }
-				},
-				{
-					selector: 'input[name="form[email]"]',
-					message: 'Введите корректный e-mail',
-					validate: function (el) { return validateEmail(el.value.trim()); }
-				}
+				{ selector: 'input[name="form[name]"]', message: 'Заполните поле' },
+				{ selector: 'input[name="form[phone]"]', message: 'Заполните поле' },
+				{ selector: 'input[name="form[email]"]', message: 'Заполните поле' },
+				{ selector: 'textarea', message: 'Заполните поле' },
 			];
-
-			form.querySelectorAll('.input').forEach(el => {
-				el.classList.remove('input-error');
-			});
+			form.querySelectorAll('.input').forEach(el => el.classList.remove('input-error'));
 			form.querySelectorAll('.form-feedback__error').forEach(el => el.remove());
-
 			fields.forEach(field => {
 				const el = form.querySelector(field.selector);
-				if (el) {
-					let isValid = field.validate ? field.validate(el) : el.value.trim() !== '';
-					if (!isValid) {
-						valid = false;
-						el.classList.add('input-error');
-						const errorDiv = document.createElement('div');
-						errorDiv.className = 'form-feedback__error';
-						errorDiv.style.color = '#d00';
-						errorDiv.style.fontSize = '13px';
-						errorDiv.style.marginTop = '4px';
-						errorDiv.textContent = field.message;
-						if (el.parentElement) {
-							el.parentElement.appendChild(errorDiv);
-						}
-					}
-					// Снимаем ошибку при вводе
+				if (el && el.value.trim() === '') {
+					valid = false;
+					el.classList.add('input-error');
+					const errorDiv = document.createElement('div');
+					errorDiv.className = 'form-feedback__error';
+					errorDiv.style.color = '#d00';
+					errorDiv.style.fontSize = '13px';
+					errorDiv.style.marginTop = '4px';
+					errorDiv.textContent = field.message;
+					if (el.parentElement) el.parentElement.appendChild(errorDiv);
 					el.addEventListener('input', function handler() {
-						if (field.validate ? field.validate(el) : el.value.trim() !== '') {
+						if (el.value.trim() !== '') {
 							el.classList.remove('input-error');
 							const err = el.parentElement.querySelector('.form-feedback__error');
 							if (err) err.remove();
