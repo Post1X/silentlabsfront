@@ -413,36 +413,14 @@
     }
     let formValidate = {
         getErrors(form) {
-            let error = 0;
-            let formRequiredItems = form.querySelectorAll("*[data-required]");
-            if (formRequiredItems.length) formRequiredItems.forEach((formRequiredItem => {
-                if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) error += this.validateInput(formRequiredItem);
-            }));
-            return error;
+            return 0;
         },
         validateInput(formRequiredItem) {
-            let error = 0;
-            if (formRequiredItem.dataset.required === "email") {
-                formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-                if (this.emailTest(formRequiredItem)) {
-                    this.addError(formRequiredItem);
-                    error++;
-                } else this.removeError(formRequiredItem);
-            } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-                this.addError(formRequiredItem);
-                error++;
-            } else if (!formRequiredItem.value.trim()) {
-                this.addError(formRequiredItem);
-                error++;
-            } else this.removeError(formRequiredItem);
-            return error;
+            this.removeError(formRequiredItem);
+            return 0;
         },
         addError(formRequiredItem) {
-            formRequiredItem.classList.add("_form-error");
-            formRequiredItem.parentElement.classList.add("_form-error");
-            let inputError = formRequiredItem.parentElement.querySelector(".form__error");
-            if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-            if (formRequiredItem.dataset.error) formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div class="form__error">${formRequiredItem.dataset.error}</div>`);
+            // disabled
         },
         removeError(formRequiredItem) {
             formRequiredItem.classList.remove("_form-error");

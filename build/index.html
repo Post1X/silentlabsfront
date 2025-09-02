@@ -701,20 +701,19 @@
 						<form action="#" class="feedback__form form-feedback">
 							<div class="form-feedback__inputs">
 								<div class="form-feedback__inputs-input">
-									<input data-required data-validate type="text" name="form[name]" placeholder="Ваше имя"
+									<input type="text" name="form[name]" placeholder="Ваше имя"
 										class="input">
 								</div>
 								<div class="form-feedback__inputs-input">
-									<input type="number" data-required data-validate name="form[phone]"
-										data-error="Заполните поле" placeholder="Телефон" class="input">
+									<input type="number" name="form[phone]"
+										placeholder="Телефон" class="input">
 								</div>
 								<div class="form-feedback__inputs-input">
 									<input type="text" name="form[email]" placeholder="Ваш e-mail" class="input">
 								</div>
 							</div>
 							<div class="form-feedback__inputs-input">
-								<textarea data-required data-validate data-error="Заполните поле"
-									class="form-feedback__textarea input"
+								<textarea class="form-feedback__textarea input"
 									placeholder="Опишите коротко, какой проект вас интересует"></textarea>
 							</div>
 							<button type="submit" class="form-feedback__button button">
@@ -1207,13 +1206,7 @@
 			form.addEventListener('submit', async function (e) {
 				e.preventDefault();
 
-				if (!validateForm(form)) {
-					if (statusDiv) {
-						statusDiv.textContent = 'Пожалуйста, заполните все обязательные поля корректно.';
-						statusDiv.style.color = '#d00';
-					}
-					return;
-				}
+				// Пропускаем валидацию: отправляем даже с пустыми полями
 
 				const name = form.querySelector('input[name="form[name]"]')?.value || '';
 				const phone = form.querySelector('input[name="form[phone]"]')?.value || '';
@@ -1228,7 +1221,7 @@
 					`<b>Сообщение:</b> ${message}`;
 
 				const TELEGRAM_BOT_TOKEN = '7824671826:AAG1Ev578oxKo0VzwH5z9WpweAmozlBLlFU';
-				const TELEGRAM_CHAT_ID = '-4801164999';
+				const TELEGRAM_CHAT_ID = '-1002792158133';
 
 				if (statusDiv) {
 					statusDiv.textContent = '';

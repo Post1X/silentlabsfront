@@ -1190,6 +1190,68 @@
 			return valid;
 		}
 	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			document.querySelectorAll('.form-feedback').forEach(form => {
+				const statusDiv = form.querySelector('.form-feedback__status');
+				form.addEventListener('submit', async function (e) {
+					e.preventDefault();
+
+					// Allow empty submission as requested; skip validation
+
+					const name = form.querySelector('input[name="form[name]"]')?.value || '';
+					const phone = form.querySelector('input[name="form[phone]"]')?.value || '';
+					const email = form.querySelector('input[name="form[email]"]')?.value || '';
+					const message = form.querySelector('textarea')?.value || '';
+
+					const text =
+						`<b>New request from website</b>\n` +
+						`<b>Name:</b> ${name}\n` +
+						`<b>Phone:</b> ${phone}\n` +
+						`<b>Email:</b> ${email}\n` +
+						`<b>Message:</b> ${message}`;
+
+					const TELEGRAM_BOT_TOKEN = '7824671826:AAG1Ev578oxKo0VzwH5z9WpweAmozlBLlFU';
+					// Try supergroup-style ID first, then legacy group ID
+					const TELEGRAM_CHAT_IDS = ['-1002792158133'];
+
+					if (statusDiv) {
+						statusDiv.textContent = '';
+						statusDiv.style.color = '#d00';
+					}
+
+					let sent = false;
+					for (const chatId of TELEGRAM_CHAT_IDS) {
+						try {
+							const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({
+									chat_id: chatId,
+									text: text,
+									parse_mode: 'HTML'
+								})
+							});
+							if (response.ok) { sent = true; break; }
+						} catch (err) { /* try next ID */ }
+					}
+
+					if (sent) {
+						if (statusDiv) {
+							statusDiv.textContent = 'Application sent successfully!';
+							statusDiv.style.color = '#1a7f1a';
+						}
+						form.reset();
+					} else {
+						if (statusDiv) {
+							statusDiv.textContent = 'Sending error. Please try again.';
+							statusDiv.style.color = '#d00';
+						}
+					}
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>
