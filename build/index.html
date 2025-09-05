@@ -1367,11 +1367,11 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			const phoneInputs = document.querySelectorAll('input[name="form[phone]"]');
+			// Маска: автопрефикс +7 и группы по 2 цифры с дефисом
 			phoneInputs.forEach((input) => {
 				function formatPhone() {
 					let digits = input.value.replace(/[^0-9]/g, '');
 					if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
-					digits = digits.slice(0, 9);
 					const groups = [];
 					for (let i = 0; i < digits.length; i += 3) {
 						groups.push(digits.slice(i, i + 3));
